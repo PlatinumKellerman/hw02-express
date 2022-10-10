@@ -13,8 +13,10 @@
     "cross-env": "7.0.3",
     "express": "4.17.1",
     "joi": "^17.6.2",
+    "mongoose": "^6.6.4",
     "morgan": "1.10.0",
-    "nanoid": "^3.3.4"
+    "nanoid": "^3.3.4",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "eslint": "7.19.0",
