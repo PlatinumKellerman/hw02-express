@@ -7,11 +7,6 @@ const emailRegexp = /^[a-z0-9]+@[a-z]+.[a-z]{2,3}$/;
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-      require: true,
-      unique: true,
-    },
     email: {
       type: String,
       require: true,
@@ -23,6 +18,12 @@ const userSchema = new Schema(
       require: true,
       minlegth: 6,
     },
+    subscription: {
+      type: String,
+      enum: ['starter', 'pro', 'business'],
+      default: 'starter',
+    },
+    token: { String },
   },
   {
     versionKey: false,
