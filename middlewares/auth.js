@@ -19,11 +19,12 @@ const authenticate = async (req, res, next) => {
     if (!user) {
       throw RequestError(401);
     }
+    req.user = user;
     next();
   } catch (error) {
     if (!error.status) {
       error.status = 401;
-      error.message = 'Unauthorized';
+      error.message = 'Not authorized';
     }
     next(error);
   }
