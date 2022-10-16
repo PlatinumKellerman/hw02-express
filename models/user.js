@@ -4,6 +4,7 @@ const Joi = require('Joi');
 const { handleSaveErrors } = require('../utils');
 
 const emailRegexp = /^[a-z0-9]+@[a-z]+.[a-z]{2,3}$/;
+const subscriptions = ['starter', 'pro', 'business'];
 
 const userSchema = new Schema(
   {
@@ -25,10 +26,13 @@ const userSchema = new Schema(
     },
     subscription: {
       type: String,
-      enum: ['starter', 'pro', 'business'],
+      enum: subscriptions,
       default: 'starter',
     },
-    token: { String },
+    token: {
+      type: String,
+      default: '',
+    },
   },
   {
     versionKey: false,
@@ -42,6 +46,7 @@ const registerSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
+  subscription: Joi.string().valid(...subscriptions),
 });
 
 const loginSchema = Joi.object({
