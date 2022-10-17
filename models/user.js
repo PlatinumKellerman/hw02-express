@@ -8,20 +8,15 @@ const subscriptions = ['starter', 'pro', 'business'];
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-      require: true,
-      minlegth: 3,
-    },
     email: {
       type: String,
-      require: true,
+      required: [true, 'Email is required'],
       unique: true,
       match: emailRegexp,
     },
     password: {
       type: String,
-      require: true,
+      required: [true, 'Password is required'],
       minlegth: 6,
     },
     subscription: {
@@ -31,7 +26,7 @@ const userSchema = new Schema(
     },
     token: {
       type: String,
-      default: '',
+      default: null,
     },
   },
   {
@@ -43,7 +38,6 @@ const userSchema = new Schema(
 userSchema.post('save', handleSaveErrors);
 
 const registerSchema = Joi.object({
-  name: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
   subscription: Joi.string().valid(...subscriptions),
