@@ -12,13 +12,11 @@ describe('test users routes', () => {
   beforeAll(() => (server = app.listen(PORT)));
   afterAll(() => server.close());
 
-  beforeEach(done => {
-    mongoose.connect(DB_TEST_HOST).then(() => done());
-  });
+  beforeEach(async () => await mongoose.connect(DB_TEST_HOST));
 
-  afterEach(done => {
-    mongoose.connection.db.dropCollection(() => {
-      mongoose.connection.close(() => done());
+  afterEach(async () => {
+    await mongoose.connection.db.dropCollection(async () => {
+      await mongoose.connection.close();
     });
   });
 
@@ -35,7 +33,7 @@ describe('test users routes', () => {
       password: '12121212',
     };
 
-    const response = await request(app).post('/api/auth/login').send(loginUser);
+    const response = await request(app).post('/api/users/login').send(loginUser);
     expect(response.statusCode).toBe(200);
     const { body } = response;
     expect(body.token).toByTruthy();
