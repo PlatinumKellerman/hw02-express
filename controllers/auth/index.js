@@ -2,5 +2,6 @@ const register = require('./register');
 const login = require('./login');
 const getCurrentUser = require('./getCurrentUser');
 const logout = require('./logout');
+const updateAvatar = require('./updateAvatar');
 
-module.exports = { register, login, getCurrentUser, logout };
+module.exports = { register, login, getCurrentUser, logout, updateAvatar };
