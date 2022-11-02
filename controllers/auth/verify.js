@@ -6,7 +6,7 @@ const verify = async (req, res) => {
   const { verificationToken } = req.params;
   const user = await User.findOne({ verificationToken });
   if (!user) {
-    throw RequestError(404, 'User not found');
+    throw RequestError(400, 'Verification has already been passed');
   }
   await User.findByIdAndUpdate(user._id, { verify: true, verificationToken: null });
 
