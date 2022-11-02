@@ -3,7 +3,7 @@ const Joi = require('Joi');
 
 const { handleSaveErrors } = require('../utils');
 
-const emailRegexp = /^[a-z0-9]+@[a-z]+.[a-z]{2,3}$/;
+const emailRegexp = /^[a-z0-9_.]+@[a-z]+.[a-z]{2,3}$/;
 const subscriptions = ['starter', 'pro', 'business'];
 
 const userSchema = new Schema(

@@ -7,7 +7,7 @@ sgMail.setApiKey(SG_API_KEY);
 const sendEmail = async data => {
   const mail = { ...data, from: 'dev_platinum@meta.ua' };
   await sgMail.send(mail);
-  return true;
+  // return true;
 };
 
 module.exports = sendEmail;
