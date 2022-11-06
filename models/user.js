@@ -3,7 +3,7 @@ const Joi = require('Joi');
 
 const { handleSaveErrors } = require('../utils');
 
-const emailRegexp = /^[a-z0-9]+@[a-z]+.[a-z]{2,3}$/;
+const emailRegexp = /^[a-z0-9_.]+@[a-z]+.[a-z]{2,3}$/;
 const subscriptions = ['starter', 'pro', 'business'];
 
 const userSchema = new Schema(
@@ -31,6 +31,14 @@ const userSchema = new Schema(
     avatarURL: {
       type: String,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
   },
   {
     versionKey: false,
@@ -51,9 +59,14 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const verifyEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
+
 const schemas = {
   registerSchema,
   loginSchema,
+  verifyEmailSchema,
 };
 
 const User = model('user', userSchema);
